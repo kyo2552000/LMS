@@ -1,56 +1,58 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Form, FormField, FormLabel, FormControl } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
-import { Loader2, Lock, Check, AlertCircle, User, Mail, Shield } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { User, Mail, Shield, AlertCircle, LogOut, KeySquare } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function SettingsPage() {
-    const { user, loading: authLoading } = useAuth();
+    const { user, loading, logout } = useAuth();
     const router = useRouter();
 
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [isSubmittingPassword, setIsSubmittingPassword] = useState(false);
+    const [passwordError, setPasswordError] = useState('');
+    const [passwordSuccess, setPasswordSuccess] = useState('');
 
     useEffect(() => {
-        if (!authLoading && !user) {
+        if (!loading && !user) {
             router.push('/login');
         }
-    }, [authLoading, user, router]);
+    }, [user, loading, router]);
 
-    useEffect(() => {
-        if (message) {
-            const t = setTimeout(() => setMessage(null), 5000);
-            return () => clearTimeout(t);
-        }
-    }, [message]);
+    const handleLogout = async () => {
+        await logout();
+        router.push('/');
+    };
 
-    const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleChangePassword = async (e: React.FormEvent) => {
         e.preventDefault();
-        setMessage(null);
+        
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            setPasswordError('Vui lòng điền đầy đủ thông tin');
+            return;
+        }
 
         if (newPassword !== confirmPassword) {
-            setMessage({ type: 'error', text: 'New passwords do not match' });
+            setPasswordError('Mật khẩu mới không khớp');
             return;
         }
 
         if (newPassword.length < 6) {
-            setMessage({ type: 'error', text: 'New password must be at least 6 characters' });
+            setPasswordError('Mật khẩu mới phải có ít nhất 6 ký tự');
             return;
         }
 
-        if (currentPassword === newPassword) {
-            setMessage({ type: 'error', text: 'New password must be different from current password' });
-            return;
-        }
+        setIsSubmittingPassword(true);
+        setPasswordError('');
+        setPasswordSuccess('');
 
-        setLoading(true);
         try {
             const res = await fetch('/api/auth/change-password', {
                 method: 'POST',
@@ -61,201 +63,229 @@ export default function SettingsPage() {
             const data = await res.json();
 
             if (!res.ok) {
-                setMessage({ type: 'error', text: data.error || 'Failed to change password' });
+                setPasswordError(data.error || 'Đổi mật khẩu thất bại');
             } else {
-                setMessage({ type: 'success', text: 'Password changed successfully! 🎉' });
+                setPasswordSuccess('Đổi mật khẩu thành công!');
                 setCurrentPassword('');
                 setNewPassword('');
                 setConfirmPassword('');
+                setTimeout(() => {
+                    setIsChangingPassword(false);
+                    setPasswordSuccess('');
+                }, 2000);
             }
         } catch {
-            setMessage({ type: 'error', text: 'Network error. Please try again.' });
+            setPasswordError('Lỗi kết nối mạng');
         } finally {
-            setLoading(false);
+            setIsSubmittingPassword(false);
         }
     };
 
-    if (authLoading) {
+    if (loading) {
         return (
-            <div className="min-h-[calc(100vh-200px)] flex items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
             </div>
         );
     }
 
-    if (!user) return null;
-
-    // Password strength indicator
-    const getPasswordStrength = (pw: string) => {
-        if (!pw) return { level: 0, label: '', color: '' };
-        let score = 0;
-        if (pw.length >= 6) score++;
-        if (pw.length >= 10) score++;
-        if (/[A-Z]/.test(pw)) score++;
-        if (/[0-9]/.test(pw)) score++;
-        if (/[^A-Za-z0-9]/.test(pw)) score++;
-
-        if (score <= 1) return { level: 1, label: 'Weak', color: 'bg-red-500' };
-        if (score <= 2) return { level: 2, label: 'Fair', color: 'bg-orange-500' };
-        if (score <= 3) return { level: 3, label: 'Good', color: 'bg-yellow-500' };
-        if (score <= 4) return { level: 4, label: 'Strong', color: 'bg-green-500' };
-        return { level: 5, label: 'Very Strong', color: 'bg-emerald-500' };
-    };
-
-    const strength = getPasswordStrength(newPassword);
+    if (!user) {
+        return null;
+    }
 
     return (
-        <div className="py-12 bg-background">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
-                <div className="mb-8">
-                    <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Cài đặt 
-                    </h1>
-                    <p className="text-muted-foreground">Quản lý tài khoản và bảo mật</p>
-                </div>
-
-                {/* Profile Info Card */}
-                <Card className="rounded-2xl shadow-md border-0 mb-6">
-                    <CardHeader>
-                        <CardTitle className="text-lg flex items-center space-x-2">
-                            <User className="h-5 w-5 text-blue-500" />
-                            <span>Thông tin cá nhân</span>
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-white text-2xl font-bold">
+        <div className="min-h-screen bg-gray-50 py-12">
+            <div className="container mx-auto px-4 max-w-3xl">
+                <div className="bg-white rounded-3xl shadow-sm border overflow-hidden">
+                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-32 relative">
+                        {/* Header Background */}
+                    </div>
+                    
+                    <div className="px-8 pb-8">
+                        <div className="relative flex justify-between items-end -mt-12 mb-8">
+                            <div className="w-24 h-24 rounded-full bg-white p-1 shadow-md">
+                                <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                    <span className="text-4xl text-white font-bold">
                                         {user.name.charAt(0).toUpperCase()}
                                     </span>
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-semibold">{user.name}</h3>
-                                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                        <Mail className="h-3.5 w-3.5" />
-                                        <span>{user.email}</span>
+                            </div>
+                            <Button
+                                onClick={handleLogout}
+                                variant="outline"
+                                className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 cursor-pointer"
+                            >
+                                <LogOut className="h-4 w-4 mr-2" />
+                                Đăng xuất
+                            </Button>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div>
+                                <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
+                                <p className="text-gray-500 flex items-center mt-1">
+                                    <Mail className="h-4 w-4 mr-2" />
+                                    {user.email}
+                                </p>
+                            </div>
+
+                            <div className="grid gap-6 mt-8">
+                                <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 flex items-start space-x-4">
+                                    <div className="bg-blue-100 p-3 rounded-xl shrink-0">
+                                        <Shield className="h-6 w-6 text-blue-600" />
                                     </div>
-                                    <div className="flex items-center space-x-2 text-sm mt-1">
-                                        <Shield className="h-3.5 w-3.5 text-blue-500" />
-                                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                                            {user.role}
-                                        </span>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900 text-lg">Thông tin tài khoản</h3>
+                                        <div className="mt-4 space-y-3">
+                                            <div className="flex items-center text-gray-600">
+                                                <User className="h-5 w-5 mr-3 text-gray-400 shrink-0" />
+                                                <span>Vai trò: <strong className="text-gray-900">{user.role === 'ADMIN' ? 'Quản trị viên' : 'Học viên'}</strong></span>
+                                            </div>
+                                            <div className="flex flex-col sm:flex-row sm:items-center text-gray-600">
+                                                <div className="flex items-center mb-1 sm:mb-0">
+                                                    <AlertCircle className="h-5 w-5 mr-3 text-gray-400 shrink-0" />
+                                                    <span className="mr-2">ID thư mục lưu trữ:</span>
+                                                </div>
+                                                <code className="bg-gray-100 px-2 py-1 rounded text-xs sm:text-sm text-gray-800 break-all">{user.id}</code>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 flex items-start space-x-4">
+                                    <div className="bg-blue-100 p-3 rounded-xl shrink-0">
+                                        <KeySquare className="h-6 w-6 text-blue-600" />
+                                    </div>
+                                    <div className="w-full">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="font-semibold text-gray-900 text-lg">Bảo mật</h3>
+                                            {!isChangingPassword && (
+                                                <Button 
+                                                    variant="outline" 
+                                                    size="sm" 
+                                                    onClick={() => setIsChangingPassword(true)}
+                                                    className="cursor-pointer bg-white text-blue-600 border-blue-200 hover:bg-blue-50"
+                                                >
+                                                    Đổi mật khẩu
+                                                </Button>
+                                            )}
+                                        </div>
+
+                                        {isChangingPassword && (
+                                            <form onSubmit={handleChangePassword} className="space-y-4 bg-white p-5 rounded-xl border shadow-sm">
+                                                {passwordError && (
+                                                    <div className="bg-red-50 text-red-500 p-3 rounded-md text-sm border border-red-100">
+                                                        {passwordError}
+                                                    </div>
+                                                )}
+                                                {passwordSuccess && (
+                                                    <div className="bg-green-50 text-green-600 p-3 rounded-md text-sm border border-green-100">
+                                                        {passwordSuccess}
+                                                    </div>
+                                                )}
+
+                                                <div className="space-y-2">
+                                                    <label className="text-sm font-medium text-gray-700">Mật khẩu hiện tại</label>
+                                                    <input
+                                                        type="password"
+                                                        value={currentPassword}
+                                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                                        placeholder="Nhập mật khẩu hiện tại"
+                                                    />
+                                                </div>
+
+                                                <div className="space-y-2">
+                                                    <label className="text-sm font-medium text-gray-700">Mật khẩu mới</label>
+                                                    <input
+                                                        type="password"
+                                                        value={newPassword}
+                                                        onChange={(e) => setNewPassword(e.target.value)}
+                                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                                        placeholder="Nhập mật khẩu mới (ít nhất 6 ký tự)"
+                                                    />
+                                                </div>
+
+                                                <div className="space-y-2">
+                                                    <label className="text-sm font-medium text-gray-700">Xác nhận mật khẩu mới</label>
+                                                    <input
+                                                        type="password"
+                                                        value={confirmPassword}
+                                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                                        placeholder="Nhập lại mật khẩu mới"
+                                                    />
+                                                </div>
+
+                                                <div className="flex space-x-3 pt-2">
+                                                    <Button 
+                                                        type="submit" 
+                                                        disabled={isSubmittingPassword}
+                                                        className="cursor-pointer bg-blue-600 hover:bg-blue-700"
+                                                    >
+                                                        {isSubmittingPassword ? 'Đang cập nhật...' : 'Lưu mật khẩu'}
+                                                    </Button>
+                                                    <Button 
+                                                        type="button" 
+                                                        variant="outline" 
+                                                        onClick={() => {
+                                                            setIsChangingPassword(false);
+                                                            setPasswordError('');
+                                                            setPasswordSuccess('');
+                                                            setCurrentPassword('');
+                                                            setNewPassword('');
+                                                            setConfirmPassword('');
+                                                        }}
+                                                        disabled={isSubmittingPassword}
+                                                        className="cursor-pointer"
+                                                    >
+                                                        Hủy
+                                                    </Button>
+                                                </div>
+                                            </form>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {user.role === 'ADMIN' ? (
+                                    <Link href="/admin">
+                                        <div className="bg-purple-50 rounded-2xl p-6 border border-purple-100 hover:shadow-md transition-shadow cursor-pointer flex items-center justify-between group">
+                                            <div className="flex items-center space-x-4">
+                                                <div className="bg-purple-100 p-3 rounded-xl group-hover:scale-110 transition-transform shrink-0">
+                                                    <Shield className="h-6 w-6 text-purple-600" />
+                                                </div>
+                                                <div>
+                                                    <h3 className="font-semibold text-gray-900 text-lg">Trang quản trị</h3>
+                                                    <p className="text-purple-600 text-sm mt-1">Truy cập bảng điều khiển quản trị viên</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-purple-600 font-bold group-hover:translate-x-1 transition-transform">
+                                                &rarr;
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <Link href="/dashboard">
+                                        <div className="bg-purple-50 rounded-2xl p-6 border border-purple-100 hover:shadow-md transition-shadow cursor-pointer flex items-center justify-between group">
+                                            <div className="flex items-center space-x-4">
+                                                <div className="bg-purple-100 p-3 rounded-xl group-hover:scale-110 transition-transform shrink-0">
+                                                    <User className="h-6 w-6 text-purple-600" />
+                                                </div>
+                                                <div>
+                                                    <h3 className="font-semibold text-gray-900 text-lg">Khóa học của tôi</h3>
+                                                    <p className="text-purple-600 text-sm mt-1">Xem tiến độ học tập và các khóa học đã đăng ký</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-purple-600 font-bold group-hover:translate-x-1 transition-transform">
+                                                &rarr;
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )}
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
-
-                {/* Change Password Card */}
-                <Card className="rounded-2xl shadow-md border-0">
-                    <CardHeader>
-                        <CardTitle className="text-lg flex items-center space-x-2">
-                            <Lock className="h-5 w-5 text-purple-500" />
-                            <span>Thay đổi mật khẩu</span>
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {/* Message */}
-                        {message && (
-                            <div
-                                className={`mb-6 p-4 rounded-xl flex items-center space-x-3 text-sm ${message.type === 'success'
-                                        ? 'bg-green-50 text-green-700 border border-green-200'
-                                        : 'bg-red-50 text-red-700 border border-red-200'
-                                    }`}
-                            >
-                                {message.type === 'success' ? (
-                                    <Check className="h-5 w-5 flex-shrink-0" />
-                                ) : (
-                                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
-                                )}
-                                <span>{message.text}</span>
-                            </div>
-                        )}
-
-                        <Form onSubmit={handleChangePassword}>
-                            <FormField>
-                                <FormLabel>Current Password</FormLabel>
-                                <FormControl
-                                    type="password"
-                                    placeholder="Enter your current password"
-                                    required
-                                    value={currentPassword}
-                                    onChange={(e) => setCurrentPassword(e.target.value)}
-                                />
-                            </FormField>
-
-                            <div className="border-t my-4" />
-
-                            <FormField>
-                                <FormLabel>Mật khẩu mới</FormLabel>
-                                <FormControl
-                                    type="password"
-                                    placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)"
-                                    required
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
-                                />
-                                {/* Password Strength */}
-                                {newPassword && (
-                                    <div className="mt-2 space-y-1.5">
-                                        <div className="flex space-x-1">
-                                            {[1, 2, 3, 4, 5].map((i) => (
-                                                <div
-                                                    key={i}
-                                                    className={`h-1.5 flex-1 rounded-full transition-colors ${i <= strength.level ? strength.color : 'bg-gray-200'
-                                                        }`}
-                                                />
-                                            ))}
-                                        </div>
-                                        <p className="text-xs text-muted-foreground">
-                                            Strength: <span className="font-medium">{strength.label}</span>
-                                        </p>
-                                    </div>
-                                )}
-                            </FormField>
-
-                            <FormField>
-                                <FormLabel>Xác nhận mật khẩu mới</FormLabel>
-                                <FormControl
-                                    type="password"
-                                    placeholder="Xác nhận mật khẩu mới"
-                                    required
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
-                                {confirmPassword && newPassword !== confirmPassword && (
-                                    <p className="text-xs text-red-500 mt-1">Mật khẩu không khớp</p>
-                                )}
-                                {confirmPassword && newPassword === confirmPassword && confirmPassword.length >= 6 && (
-                                    <p className="text-xs text-green-500 mt-1 flex items-center space-x-1">
-                                        <Check className="h-3 w-3" />
-                                        <span>Mật khẩu khớp</span>
-                                    </p>
-                                )}
-                            </FormField>
-
-                            <Button
-                                type="submit"
-                                disabled={loading || !currentPassword || !newPassword || newPassword !== confirmPassword}
-                                className="w-full mt-6 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50"
-                            >
-                                {loading ? (
-                                    <>
-                                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                        Đang thay đổi mật khẩu...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Lock className="h-4 w-4 mr-2" />
-                                        Thay đổi mật khẩu
-                                    </>
-                                )}
-                            </Button>
-                        </Form>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
         </div>
     );

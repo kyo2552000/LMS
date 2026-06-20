@@ -8,6 +8,7 @@
  */
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcryptjs");
+const { getMysqlOptions } = require("./db-config");
 
 async function resetPassword() {
     const email = process.argv[2];
@@ -24,13 +25,7 @@ async function resetPassword() {
         process.exit(1);
     }
 
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        port: 3306,
-        user: "root",
-        password: "123456",
-        database: "edulearn",
-    });
+    const connection = await mysql.createConnection(getMysqlOptions({ withDatabase: true }));
 
     try {
         // Check if user exists

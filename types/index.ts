@@ -15,14 +15,16 @@ export interface Course {
   rating: number;
   students: number;
   isEnrolled?: boolean;
+  hasPendingOrder?: boolean;
 }
 
 export interface Lesson {
   id: string;
   title: string;
   duration: string;
-  type: 'video' | 'quiz' | 'assignment' | 'VIDEO' | 'QUIZ' | 'ASSIGNMENT';
+  type: 'video' | 'quiz' | 'assignment' | 'text' | 'VIDEO' | 'QUIZ' | 'ASSIGNMENT' | 'TEXT';
   video_url?: string;
+  docx_url?: string;
   content?: string;
 }
 

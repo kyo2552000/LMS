@@ -115,43 +115,92 @@ export default function ChatBot() {
     };
 
     const formatMessageContent = (content: string) => {
-        // Simple markdown-like formatting
-        return content
-            .split("\n")
-            .map((line, i) => {
-                // Bold text
-                const formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                return (
-                    <span key={i}>
-                        <span dangerouslySetInnerHTML={{ __html: formattedLine }} />
-                        {i < content.split("\n").length - 1 && <br />}
-                    </span>
-                );
-            });
+        let inCodeBlock = false;
+        return content.split("\n").map((line, i) => {
+            if (line.trim().startsWith("```")) {
+                inCodeBlock = !inCodeBlock;
+                return <div key={i} className="h-2"></div>;
+            }
+
+            if (inCodeBlock) {
+                return <div key={i} className="bg-gray-800 text-gray-100 font-mono text-[11px] p-1 px-2 rounded whitespace-pre-wrap">{line}</div>;
+            }
+
+            let isBlock = false;
+            let formattedLine = line;
+
+            // Headers
+            if (line.startsWith("### ")) {
+                formattedLine = `<h4 class="font-bold text-[15px] mt-2 mb-1 text-gray-800">${line.substring(4)}</h4>`;
+                isBlock = true;
+            } else if (line.startsWith("## ") || line.startsWith("# ")) {
+                formattedLine = `<h3 class="font-bold text-base mt-2 mb-1 text-gray-900">${line.replace(/^#+\s/, '')}</h3>`;
+                isBlock = true;
+            }
+
+            if (!isBlock) {
+                // Determine if line is a list item first to extract content cleanly
+                const bulletMatch = line.match(/^(\s*)([-*])\s+(.*)/);
+                const numberMatch = line.match(/^(\s*)(\d+\.)\s+(.*)/);
+
+                let contentToFormat = line;
+                let wrapperStart = "";
+                let wrapperEnd = "";
+
+                if (bulletMatch) {
+                    contentToFormat = bulletMatch[3];
+                    wrapperStart = `<div class="flex mt-1 mb-1 ml-${bulletMatch[1].length > 0 ? '4' : '0'}"><span class="mr-2 mt-0.5 text-gray-500">•</span><span class="flex-1">`;
+                    wrapperEnd = `</span></div>`;
+                    isBlock = true;
+                } else if (numberMatch) {
+                    contentToFormat = numberMatch[3];
+                    wrapperStart = `<div class="flex mt-1 mb-1 ml-${numberMatch[1].length > 0 ? '4' : '0'}"><span class="mr-2 font-medium text-gray-700">${numberMatch[2]}</span><span class="flex-1">`;
+                    wrapperEnd = `</span></div>`;
+                    isBlock = true;
+                }
+
+                // Apply inline formatting to the clean content
+                let formattedContent = contentToFormat;
+                // Bold formatting
+                formattedContent = formattedContent.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>');
+                // Link formatting
+                formattedContent = formattedContent.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline font-medium hover:text-indigo-800 transition-colors cursor-pointer">$1</a>');
+
+                formattedLine = wrapperStart + formattedContent + wrapperEnd;
+            }
+
+            return (
+                <span key={i} className={isBlock ? 'block' : ''}>
+                    <span dangerouslySetInnerHTML={{ __html: formattedLine }} />
+                    {!isBlock && i < content.split("\n").length - 1 && line.trim() !== "" && <br />}
+                </span>
+            );
+        });
     };
 
     if (!isOpen) {
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 z-50 group"
+                className="fixed bottom-24 right-6 z-[100] group"
                 aria-label="Open AI Chat"
                 id="chatbot-toggle"
             >
-                <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 shadow-2xl shadow-purple-500/30 transition-all duration-300 hover:scale-110 hover:shadow-purple-500/50">
+                <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 shadow-2xl shadow-purple-500/40 transition-all duration-300 hover:scale-110 hover:shadow-purple-500/60 ring-4 ring-white/20">
                     <MessageCircle className="w-7 h-7 text-white" />
 
                     {/* Notification dot */}
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-white flex items-center justify-center shadow-sm hover:animate-ping">
                         <span className="text-[8px] text-white font-bold">AI</span>
                     </span>
                 </div>
 
                 {/* Tooltip */}
-                <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-y-1 pointer-events-none">
-                    <div className="bg-gray-900 text-white text-sm px-4 py-2 rounded-xl shadow-xl whitespace-nowrap">
-                        💬 Chat with EduBot AI
-                        <div className="absolute top-full right-6 border-4 border-transparent border-t-gray-900" />
+                <div className="absolute top-1/2 -translate-y-1/2 right-[110%] mr-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-x-2 pointer-events-none">
+                    <div className="bg-gray-900 text-white text-sm px-4 py-2.5 rounded-xl shadow-xl whitespace-nowrap font-medium flex items-center">
+                        <Sparkles className="w-4 h-4 mr-1.5 text-yellow-400" /> Chat với AI EduBot
+                        {/* Triangle arrow on the right */}
+                        <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-gray-900" />
                     </div>
                 </div>
             </button>
@@ -160,9 +209,9 @@ export default function ChatBot() {
 
     return (
         <div
-            className={`fixed z-50 transition-all duration-500 ease-out ${isMinimized
-                    ? "bottom-6 right-6 w-80"
-                    : "bottom-6 right-6 w-[420px] h-[680px] max-h-[85vh]"
+            className={`fixed z-[100] transition-all duration-500 ease-out ${isMinimized
+                ? "bottom-24 right-6 w-80"
+                : "bottom-24 right-6 w-[420px] h-[680px] max-h-[80vh]"
                 }`}
             id="chatbot-window"
         >
@@ -262,8 +311,8 @@ export default function ChatBot() {
                                     <div className={`max-w-[75%] ${message.role === "user" ? "order-first" : ""}`}>
                                         <div
                                             className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${message.role === "user"
-                                                    ? "bg-gradient-to-br from-violet-600 to-purple-700 text-white rounded-br-md shadow-lg shadow-purple-200"
-                                                    : "bg-white text-gray-700 border border-gray-100 rounded-bl-md shadow-sm"
+                                                ? "bg-gradient-to-br from-violet-600 to-purple-700 text-white rounded-br-md shadow-lg shadow-purple-200"
+                                                : "bg-white text-gray-700 border border-gray-100 rounded-bl-md shadow-sm"
                                                 }`}
                                         >
                                             {message.role === "assistant"

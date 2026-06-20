@@ -6,6 +6,16 @@ import db from '@/lib/db';
 import { RowDataPacket } from 'mysql2';
 import { Course, Category } from '@/types';
 
+// Optimize load time by using ISR
+export const revalidate = 3600;
+
+// Add SEO Metadata
+export const metadata = {
+  title: 'Học tập trực tuyến E-Learning - Tương lai của giáo dục',
+  description: 'Nền tảng E-Learning với hàng ngàn khóa học chất lượng cao, giảng viên chuyên nghiệp, chứng chỉ uy tín. Bắt đầu hành trình học tập của bạn ngay hôm nay.',
+  keywords: ['E-Learning', 'Học trực tuyến', 'Khóa học thiết kế', 'Khóa học lập trình', 'Chứng chỉ uy tín'],
+};
+
 async function getFeaturedCourses(): Promise<Course[]> {
   try {
     const [rows] = await db.execute<RowDataPacket[]>(
@@ -19,19 +29,25 @@ async function getFeaturedCourses(): Promise<Course[]> {
        LIMIT 6`
     );
 
-    // Get lessons for each course
+    if (rows.length === 0) return [];
+
+    // Solve N+1 Query: Fetch all lessons for these courses in ONE query
+    const courseIds = rows.map((r: any) => r.id);
+    const placeholders = courseIds.map(() => '?').join(',');
+    const [allLessons] = await db.execute<RowDataPacket[]>(
+      `SELECT * FROM lessons WHERE course_id IN (${placeholders}) ORDER BY sort_order ASC`,
+      courseIds
+    );
+
     for (const row of rows) {
-      const [lessons] = await db.execute<RowDataPacket[]>(
-        "SELECT * FROM lessons WHERE course_id = ? ORDER BY sort_order ASC",
-        [row.id]
-      );
-      row.lessons = lessons;
+      row.lessons = (allLessons as any[]).filter(l => l.course_id === row.id);
       row.category = row.category_name;
       row.instructor = row.instructor_name;
     }
 
     return rows as unknown as Course[];
-  } catch {
+  } catch (error) {
+    console.error('Lỗi tải khóa học:', error);
     return [];
   }
 }
@@ -42,7 +58,8 @@ async function getCategories(): Promise<Category[]> {
       "SELECT * FROM categories ORDER BY name ASC"
     );
     return rows as unknown as Category[];
-  } catch {
+  } catch (error) {
+    console.error('Lỗi tải danh mục:', error);
     return [];
   }
 }
@@ -75,8 +92,8 @@ export default async function Home() {
           </div>
           <div className="text-center mt-12">
             <Link href="/courses">
-              <button className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl cursor-pointer">
-                Xem tất cả khóa học
+              <button className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 cursor-pointer">
+                Xem tất cả khóa học →
               </button>
             </Link>
           </div>
@@ -97,7 +114,7 @@ export default async function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((category) => (
               <Link key={category.id} href={`/courses?category=${category.name}`}>
-                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-0 shadow-md hover:scale-105">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-0 shadow-md hover:-translate-y-1">
                   <CardContent className="p-6 text-center">
                     <div className={`w-16 h-16 ${category.color} rounded-2xl flex items-center justify-center text-3xl mb-4 mx-auto group-hover:scale-110 transition-transform`}>
                       {category.icon}

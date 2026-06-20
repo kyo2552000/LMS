@@ -1,66 +1,58 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 import { RowDataPacket } from "mysql2";
 import bcrypt from "bcryptjs";
 import { getAuthUser } from "@/lib/auth";
+import { validateInput, ChangePasswordSchema } from "@/lib/validation";
+import { checkRateLimit, getClientIp, AUTH_RATE_LIMIT } from "@/lib/rate-limit";
+import {
+    handleApiError,
+    AuthenticationError,
+    NotFoundError,
+    ErrorCodes,
+} from "@/lib/api-error";
 
 export async function POST(request: NextRequest) {
+    // Rate limiting — chia sẻ namespace auth
+    const ip = getClientIp(request);
+    const rateLimit = checkRateLimit(ip, { ...AUTH_RATE_LIMIT, namespace: "change-password" });
+    if (!rateLimit.success) {
+        return NextResponse.json(
+            { success: false, error: `Thử lại sau ${rateLimit.retryAfter}s.`, errorCode: ErrorCodes.RATE_LIMIT_EXCEEDED },
+            { status: 429, headers: { "Retry-After": String(rateLimit.retryAfter) } }
+        );
+    }
+
     try {
         const user = await getAuthUser();
-        if (!user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+        if (!user) throw new AuthenticationError("Vui lòng đăng nhập", ErrorCodes.TOKEN_INVALID);
 
-        const { currentPassword, newPassword } = await request.json();
+        // Zod validation 
+        const body = await request.json().catch(() => ({}));
+        const validation = validateInput(ChangePasswordSchema, body);
+        if (!validation.success) return validation.response;
+        const { currentPassword, newPassword } = validation.data;
 
-        if (!currentPassword || !newPassword) {
-            return NextResponse.json(
-                { error: "Mật khẩu hiện tại và mật khẩu mới là bắt buộc" },
-                { status: 400 }
-            );
-        }
-
-        if (newPassword.length < 6) {
-            return NextResponse.json(
-                { error: "Mật khẩu mới phải có ít nhất 6 ký tự" },
-                { status: 400 }
-            );
-        }
-
-        // Get user from DB
+        // Lấy hash từ DB
         const [users] = await db.execute<RowDataPacket[]>(
-            "SELECT * FROM users WHERE id = ?",
+            "SELECT id, password FROM users WHERE id = ?",
             [user.id]
         );
+        if (users.length === 0) throw new NotFoundError("Không tìm thấy người dùng", ErrorCodes.USER_NOT_FOUND);
 
-        if (users.length === 0) {
-            return NextResponse.json({ error: "User not found" }, { status: 404 });
-        }
-
-        const dbUser = users[0];
-
-        // Verify current password
-        const isValid = await bcrypt.compare(currentPassword, dbUser.password);
+        // Verify mật khẩu hiện tại
+        const isValid = await bcrypt.compare(currentPassword, users[0].password);
         if (!isValid) {
-            return NextResponse.json(
-                { error: "Current password is incorrect" },
-                { status: 401 }
-            );
+            throw new AuthenticationError("Mật khẩu hiện tại không chính xác", ErrorCodes.INVALID_CREDENTIALS);
         }
 
-        // Hash new password and update
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await db.execute("UPDATE users SET password = ? WHERE id = ?", [
-            hashedPassword,
-            user.id,
-        ]);
+        // Hash & update
+        const hashed = await bcrypt.hash(newPassword, 10);
+        await db.execute("UPDATE users SET password = ? WHERE id = ?", [hashed, user.id]);
 
-        return NextResponse.json({ message: "Password changed successfully" });
+        return NextResponse.json({ success: true, message: "Đổi mật khẩu thành công" });
     } catch (error) {
-        console.error("Change password error:", error);
-        return NextResponse.json(
-            { error: "Internal server error" },
-            { status: 500 }
-        );
+        return handleApiError(error);
     }
 }

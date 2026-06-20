@@ -54,21 +54,21 @@ export default function HeroSection() {
                 <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div className="text-2xl font-bold text-gray-900 dark:text-white">50K+</div>
-              <div className="text-sm text-muted-foreground">Active Students</div>
+              <div className="text-sm text-muted-foreground">Học Viên</div>
             </div>
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 mb-3 mx-auto">
                 <BookOpen className="h-6 w-6 text-purple-600 dark:text-purple-400" />
               </div>
               <div className="text-2xl font-bold text-gray-900 dark:text-white">500+</div>
-              <div className="text-sm text-muted-foreground">Online Courses</div>
+              <div className="text-sm text-muted-foreground">Khóa Học</div>
             </div>
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-900/30 mb-3 mx-auto">
                 <Award className="h-6 w-6 text-pink-600 dark:text-pink-400" />
               </div>
               <div className="text-2xl font-bold text-gray-900 dark:text-white">100+</div>
-              <div className="text-sm text-muted-foreground">Expert Instructors</div>
+              <div className="text-sm text-muted-foreground">Giảng Viên</div>
             </div>
           </div>
         </div>

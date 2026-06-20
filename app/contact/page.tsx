@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import {
     Phone, Mail, MapPin, Clock, Send, MessageSquare, Headphones,
-    ArrowRight, CheckCircle, Globe, Facebook, Instagram
+    ArrowRight, CheckCircle
 } from 'lucide-react';
 
 const contactMethods = [
@@ -40,14 +40,6 @@ const contactMethods = [
     },
 ];
 
-
-
-
-const socials = [
-    { icon: Facebook, name: 'Facebook', handle: 'EduLearn Vietnam', followers: '45K', href: '#', color: 'hover:bg-blue-50 hover:border-blue-200' },
-    { icon: Globe, name: 'LinkedIn', handle: 'EduLearn', followers: '20K', href: '#', color: 'hover:bg-sky-50 hover:border-sky-200' },
-    { icon: Instagram, name: 'Instagram', handle: '@edulearn_vn', followers: '30K', href: '#', color: 'hover:bg-pink-50 hover:border-pink-200' },
-];
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({

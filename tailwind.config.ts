@@ -9,6 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 2s infinite',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

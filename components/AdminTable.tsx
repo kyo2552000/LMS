@@ -121,6 +121,46 @@ export default function AdminTable({ table, title }: AdminTableProps) {
         (c) => !['password', 'content', 'video_url'].includes(c.COLUMN_NAME)
     );
 
+    const columnLabels: Record<string, string> = {
+        id: 'ID',
+        email: 'Email',
+        name: 'Tên',
+        role: 'Vai trò',
+        avatar: 'Ảnh đại diện',
+        bio: 'Giới thiệu',
+        title: 'Tiêu đề',
+        description: 'Mô tả',
+        price: 'Giá',
+        image: 'Hình ảnh',
+        rating: 'Đánh giá',
+        comment: 'Bình luận',
+        students: 'Học viên',
+        level: 'Cấp độ',
+        published: 'Xuất bản',
+        category_id: 'Danh mục',
+        instructor_id: 'Giảng viên',
+        course_id: 'Khóa học',
+        user_id: 'Người dùng',
+        lesson_id: 'Bài học',
+        status: 'Trạng thái',
+        progress: 'Tiến độ',
+        amount: 'Số tiền',
+        payment_method: 'Phương thức TT',
+        sort_order: 'Thứ tự',
+        duration: 'Thời lượng',
+        type: 'Loại',
+        icon: 'Icon',
+        color: 'Màu sắc',
+        completed: 'Hoàn thành',
+        completed_at: 'Ngày HT',
+        watch_time: 'Thời gian xem',
+        content: 'Nội dung',
+        created_at: 'Ngày tạo',
+        updated_at: 'Cập nhật',
+        enrolled_at: 'Ngày ghi danh',
+        paid_at: 'Ngày thanh toán',
+    };
+
     const formatValue = (val: unknown): string => {
         if (val === null || val === undefined) return '—';
         if (val instanceof Date) return (val as Date).toLocaleString();
@@ -167,7 +207,7 @@ export default function AdminTable({ table, title }: AdminTableProps) {
                                                 key={col.COLUMN_NAME}
                                                 className="px-4 py-3 text-left font-semibold text-gray-600 text-xs uppercase tracking-wider whitespace-nowrap"
                                             >
-                                                {col.COLUMN_NAME}
+                                                {columnLabels[col.COLUMN_NAME] || col.COLUMN_NAME}
                                                 {col.COLUMN_KEY === 'PRI' && (
                                                     <span className="ml-1 text-blue-500 text-[10px]">PK</span>
                                                 )}

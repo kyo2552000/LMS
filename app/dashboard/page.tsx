@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { BookOpen, Clock, Users, Award, ArrowRight, Loader2, Search } from 'lucide-react';
+import { BookOpen, Clock, Users, Award, ArrowRight, Loader2, Search, CheckCircle2, PlayCircle } from 'lucide-react';
 import Image from 'next/image';
 import { useAuth } from '@/components/AuthProvider';
 
@@ -22,6 +22,11 @@ export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
+  const [dashboardStats, setDashboardStats] = useState({
+    total: 0,
+    completed: 0,
+    inProgress: 0,
+  });
   const [loadingCourses, setLoadingCourses] = useState(true);
 
   useEffect(() => {
@@ -40,6 +45,7 @@ export default function DashboardPage() {
           const res = await fetch(`/api/dashboard?q=${encodeURIComponent(searchQuery)}`);
           const data = await res.json();
           setEnrolledCourses(data.courses || []);
+          setDashboardStats(data.stats || { total: 0, completed: 0, inProgress: 0 });
         } catch (err) {
           console.error("Failed to load dashboard courses", err);
         } finally {
@@ -68,6 +74,12 @@ export default function DashboardPage() {
     const hrs = Math.round(totalMinutes / 60);
     return acc + (isNaN(hrs) ? 0 : hrs);
   }, 0) || 0;
+  const progressPercent = dashboardStats.total > 0 ? Math.round((dashboardStats.completed / dashboardStats.total) * 100) : 0;
+
+  const getCourseProgress = (course: Course & { user_progress?: number }) => {
+    const progress = Number((course as { user_progress?: number }).user_progress ?? 0);
+    return Number.isFinite(progress) ? Math.max(0, Math.min(100, progress)) : 0;
+  };
 
   return (
     <div className="py-12 bg-background">
@@ -80,6 +92,36 @@ export default function DashboardPage() {
             Tiếp tục học và theo dõi tiến độ của bạn
           </p>
         </div>
+
+        {/* Progress Summary */}
+        <Card className="rounded-2xl shadow-md border-0 mb-8 overflow-hidden">
+          <CardContent className="p-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Tổng tiến độ học tập</p>
+                <h2 className="text-3xl font-bold mb-2">
+                  {dashboardStats.completed}/{dashboardStats.total} khóa học hoàn thành
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {dashboardStats.inProgress} khóa học đang học dở
+                </p>
+              </div>
+              <div className="flex-1 max-w-xl">
+                <div className="h-3 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-500"
+                    style={{ width: `${progressPercent}%` }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                  <span>0%</span>
+                  <span>{progressPercent}%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -116,7 +158,7 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Chứng chỉ</p>
-                  <p className="text-3xl font-bold">0</p>
+                  <p className="text-3xl font-bold">{dashboardStats.completed}</p>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center">
                   <Award className="h-6 w-6 text-pink-600 dark:text-pink-400" />
@@ -151,7 +193,10 @@ export default function DashboardPage() {
             </div>
           ) : enrolledCourses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {enrolledCourses.map((course) => (
+              {enrolledCourses.map((course) => {
+                const courseProgress = getCourseProgress(course);
+                const isCompleted = courseProgress >= 100;
+                return (
                 <Card key={course.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 rounded-2xl shadow-md border-0">
                   <div className="relative h-48 overflow-hidden">
                     <Image
@@ -162,15 +207,37 @@ export default function DashboardPage() {
                     />
                   </div>
                   <CardHeader>
-                    <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 inline-block mb-2">
-                      {course.category}
-                    </span>
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 inline-block">
+                        {course.category}
+                      </span>
+                      <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full inline-flex items-center gap-1 ${
+                        isCompleted
+                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                          : 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                      }`}>
+                        {isCompleted ? <CheckCircle2 className="h-3 w-3" /> : <PlayCircle className="h-3 w-3" />}
+                        {isCompleted ? 'Hoàn thành' : 'Đang học'}
+                      </span>
+                    </div>
                     <CardTitle className="text-xl line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {course.title}
                     </CardTitle>
                     <p className="text-sm text-muted-foreground">by {course.instructor}</p>
                   </CardHeader>
                   <CardContent>
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                        <span>Tiến độ học</span>
+                        <span>{courseProgress}%</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
+                          style={{ width: `${courseProgress}%` }}
+                        />
+                      </div>
+                    </div>
                     <div className="flex items-center space-x-4 text-xs text-muted-foreground mb-4">
                       <div className="flex items-center space-x-1">
                         <Clock className="h-4 w-4" />
@@ -181,15 +248,16 @@ export default function DashboardPage() {
                         <span>{Number(course.students).toLocaleString('en-US')} students</span>
                       </div>
                     </div>
-                    <Link href={`/courses/${course.id}`}>
+                    <Link href={`/courses/${course.id}/learn`}>
                       <Button className="w-full cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
-                        Tiếp tục học
+                        {isCompleted ? 'Xem lại khóa học' : 'Tiếp tục học'}
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </Link>
                   </CardContent>
                 </Card>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <Card className="rounded-2xl shadow-md border-0">

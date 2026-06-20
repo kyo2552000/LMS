@@ -16,6 +16,8 @@ interface AuthContextType {
     login: (email: string, password: string) => Promise<{ error?: string; user?: User }>;
     register: (name: string, email: string, password: string) => Promise<{ error?: string }>;
     logout: () => Promise<void>;
+    updateUser: (user: User) => void;
+    refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -55,13 +57,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await res.json();
 
             if (!res.ok) {
-                return { error: data.error || 'Login failed' };
+                return { error: data.error || 'Đăng nhập thất bại' };
             }
 
             setUser(data.user);
             return { user: data.user };
         } catch {
-            return { error: 'Network error' };
+            return { error: 'Lỗi mạng' };
         }
     };
 
@@ -76,13 +78,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await res.json();
 
             if (!res.ok) {
-                return { error: data.error || 'Registration failed' };
+                return { error: data.error || 'Đăng ký thất bại' };
             }
 
             setUser(data.user);
             return {};
         } catch {
-            return { error: 'Network error' };
+            return { error: 'Lỗi mạng' };
         }
     };
 
@@ -91,8 +93,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
     };
 
+    const updateUser = (updatedUser: User) => {
+        setUser(updatedUser);
+    }
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser, refreshUser: fetchUser }}>
             {children}
         </AuthContext.Provider>
     );
@@ -101,7 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
     const context = useContext(AuthContext);
     if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error('useAuth phải được sử dụng trong AuthProvider');
     }
     return context;
 }

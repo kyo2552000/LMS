@@ -47,9 +47,10 @@ export async function GET(
         );
         course.reviews = reviews;
 
-        // Check if current user is enrolled
+        // Check if current user is enrolled or has a pending order
         const user = await getAuthUser();
         course.isEnrolled = false;
+        course.hasPendingOrder = false;
         if (user) {
             const [enrollment] = await db.execute<RowDataPacket[]>(
                 "SELECT id FROM enrollments WHERE course_id = ? AND user_id = ?",
@@ -57,6 +58,15 @@ export async function GET(
             );
             if (enrollment.length > 0) {
                 course.isEnrolled = true;
+            }
+            if (!course.isEnrolled) {
+                const [pendingOrder] = await db.execute<RowDataPacket[]>(
+                    "SELECT id FROM orders WHERE user_id = ? AND course_id = ? AND status = 'PENDING'",
+                    [user.id, id]
+                );
+                if (pendingOrder.length > 0) {
+                    course.hasPendingOrder = true;
+                }
             }
         }
 

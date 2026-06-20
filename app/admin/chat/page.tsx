@@ -95,17 +95,18 @@ export default function AdminChatPage() {
 
     return (
         <div className="p-8">
-            <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-900">Tin nhắn trò chuyện</h1>
-                <p className="text-gray-500 mt-1">{total} tin nhắn trong cơ sở dữ liệu</p>
+            {/* Header */}
+            <div className="flex items-center justify-between mb-8">
+                <div>
+                    <h1 className="text-3xl font-bold text-slate-900">Tin nhắn trò chuyện</h1>
+                    <p className="text-slate-500 mt-1">{total} tin nhắn trong cơ sở dữ liệu</p>
+                </div>
             </div>
 
+            {/* Toast Message */}
             {message && (
-                <div className={`mb-4 p-3 rounded-lg flex items-center space-x-2 text-sm ${message.type === 'success'
-                    ? 'bg-green-50 text-green-700 border border-green-200'
-                    : 'bg-red-50 text-red-700 border border-red-200'
-                    }`}>
-                    {message.type === 'success' ? <Check className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
+                <div className={`mb-6 p-4 rounded-xl flex items-center space-x-3 text-sm font-medium ${message.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                    {message.type === 'success' ? <Check className="h-5 w-5" /> : <AlertCircle className="h-5 w-5" />}
                     <span>{message.text}</span>
                 </div>
             )}
