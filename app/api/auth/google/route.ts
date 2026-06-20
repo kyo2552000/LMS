@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const redirectTo = searchParams.get("redirect") || "/dashboard";
 
-    const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
+    const proto = request.headers.get("x-forwarded-proto") || "https";
+    const host = request.headers.get("x-forwarded-host") || request.nextUrl.host;
+    const baseUrl = process.env.NEXTAUTH_URL || `${proto}://${host}`;
     const callbackUrl = `${baseUrl}/api/auth/google/callback`;
 
     const params = new URLSearchParams({

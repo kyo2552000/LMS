@@ -11,7 +11,9 @@ export async function GET(request: NextRequest) {
     const state = searchParams.get("state") || "/dashboard"; // redirect destination
     const error = searchParams.get("error");
 
-    const baseUrl = process.env.NEXTAUTH_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
+    const proto = request.headers.get("x-forwarded-proto") || "https";
+    const host = request.headers.get("x-forwarded-host") || request.nextUrl.host;
+    const baseUrl = process.env.NEXTAUTH_URL || `${proto}://${host}`;
     const callbackUrl = `${baseUrl}/api/auth/google/callback`;
 
     if (error || !code) {
