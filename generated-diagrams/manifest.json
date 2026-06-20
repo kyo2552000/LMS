@@ -1,0 +1,218 @@
+{
+  "generatedAt": "2026-04-27T07:59:57.577Z",
+  "blocks": [
+    {
+      "index": 0,
+      "title": "1.1 Use Case tổng quát",
+      "slug": "01-1-1-use-case-tong-quat",
+      "png": "generated-diagrams\\01-1-1-use-case-tong-quat.png",
+      "svg": "generated-diagrams\\01-1-1-use-case-tong-quat.svg"
+    },
+    {
+      "index": 1,
+      "title": "1.2 Use Case chi tiết - Quản lý tài khoản",
+      "slug": "02-1-2-use-case-chi-tiet-quan-ly-tai-khoan",
+      "png": "generated-diagrams\\02-1-2-use-case-chi-tiet-quan-ly-tai-khoan.png",
+      "svg": "generated-diagrams\\02-1-2-use-case-chi-tiet-quan-ly-tai-khoan.svg"
+    },
+    {
+      "index": 2,
+      "title": "1.3 Use Case chi tiết - Quản lý khóa học",
+      "slug": "03-1-3-use-case-chi-tiet-quan-ly-khoa-hoc",
+      "png": "generated-diagrams\\03-1-3-use-case-chi-tiet-quan-ly-khoa-hoc.png",
+      "svg": "generated-diagrams\\03-1-3-use-case-chi-tiet-quan-ly-khoa-hoc.svg"
+    },
+    {
+      "index": 3,
+      "title": "1.4 Use Case chi tiết - Thanh toán & Đơn hàng",
+      "slug": "04-1-4-use-case-chi-tiet-thanh-toan-on-hang",
+      "png": "generated-diagrams\\04-1-4-use-case-chi-tiet-thanh-toan-on-hang.png",
+      "svg": "generated-diagrams\\04-1-4-use-case-chi-tiet-thanh-toan-on-hang.svg"
+    },
+    {
+      "index": 4,
+      "title": "1.5 Use Case chi tiết - Chatbot AI",
+      "slug": "05-1-5-use-case-chi-tiet-chatbot-ai",
+      "png": "generated-diagrams\\05-1-5-use-case-chi-tiet-chatbot-ai.png",
+      "svg": "generated-diagrams\\05-1-5-use-case-chi-tiet-chatbot-ai.svg"
+    },
+    {
+      "index": 5,
+      "title": "1.6 Use Case chi tiết - Admin",
+      "slug": "06-1-6-use-case-chi-tiet-admin",
+      "png": "generated-diagrams\\06-1-6-use-case-chi-tiet-admin.png",
+      "svg": "generated-diagrams\\06-1-6-use-case-chi-tiet-admin.svg"
+    },
+    {
+      "index": 6,
+      "title": "2.1 Hoạt động - Đăng nhập",
+      "slug": "07-2-1-hoat-ong-ang-nhap",
+      "png": "generated-diagrams\\07-2-1-hoat-ong-ang-nhap.png",
+      "svg": "generated-diagrams\\07-2-1-hoat-ong-ang-nhap.svg"
+    },
+    {
+      "index": 7,
+      "title": "2.2 Hoạt động - Đăng ký",
+      "slug": "08-2-2-hoat-ong-ang-ky",
+      "png": "generated-diagrams\\08-2-2-hoat-ong-ang-ky.png",
+      "svg": "generated-diagrams\\08-2-2-hoat-ong-ang-ky.svg"
+    },
+    {
+      "index": 8,
+      "title": "2.3 Hoạt động - Mua khóa học",
+      "slug": "09-2-3-hoat-ong-mua-khoa-hoc",
+      "png": "generated-diagrams\\09-2-3-hoat-ong-mua-khoa-hoc.png",
+      "svg": "generated-diagrams\\09-2-3-hoat-ong-mua-khoa-hoc.svg"
+    },
+    {
+      "index": 9,
+      "title": "2.4 Hoạt động - Chatbot AI",
+      "slug": "10-2-4-hoat-ong-chatbot-ai",
+      "png": "generated-diagrams\\10-2-4-hoat-ong-chatbot-ai.png",
+      "svg": "generated-diagrams\\10-2-4-hoat-ong-chatbot-ai.svg"
+    },
+    {
+      "index": 10,
+      "title": "2.5 Hoạt động - Admin quản lý dữ liệu",
+      "slug": "11-2-5-hoat-ong-admin-quan-ly-du-lieu",
+      "png": "generated-diagrams\\11-2-5-hoat-ong-admin-quan-ly-du-lieu.png",
+      "svg": "generated-diagrams\\11-2-5-hoat-ong-admin-quan-ly-du-lieu.svg"
+    },
+    {
+      "index": 11,
+      "title": "3.1 Sơ đồ lớp phân tích",
+      "slug": "12-3-1-so-o-lop-phan-tich",
+      "png": "generated-diagrams\\12-3-1-so-o-lop-phan-tich.png",
+      "svg": "generated-diagrams\\12-3-1-so-o-lop-phan-tich.svg"
+    },
+    {
+      "index": 12,
+      "title": "4.1 ERD tổng quát",
+      "slug": "13-4-1-erd-tong-quat",
+      "png": "generated-diagrams\\13-4-1-erd-tong-quat.png",
+      "svg": "generated-diagrams\\13-4-1-erd-tong-quat.svg"
+    },
+    {
+      "index": 13,
+      "title": "5.1 Kiến trúc tổng thể hệ thống",
+      "slug": "14-5-1-kien-truc-tong-the-he-thong",
+      "png": "generated-diagrams\\14-5-1-kien-truc-tong-the-he-thong.png",
+      "svg": "generated-diagrams\\14-5-1-kien-truc-tong-the-he-thong.svg"
+    },
+    {
+      "index": 14,
+      "title": "6.1 Xử lý đăng nhập",
+      "slug": "15-6-1-xu-ly-ang-nhap",
+      "png": "generated-diagrams\\15-6-1-xu-ly-ang-nhap.png",
+      "svg": "generated-diagrams\\15-6-1-xu-ly-ang-nhap.svg"
+    },
+    {
+      "index": 15,
+      "title": "6.2 Xử lý mua khóa học",
+      "slug": "16-6-2-xu-ly-mua-khoa-hoc",
+      "png": "generated-diagrams\\16-6-2-xu-ly-mua-khoa-hoc.png",
+      "svg": "generated-diagrams\\16-6-2-xu-ly-mua-khoa-hoc.svg"
+    },
+    {
+      "index": 16,
+      "title": "6.3 Xử lý Chatbot AI",
+      "slug": "17-6-3-xu-ly-chatbot-ai",
+      "png": "generated-diagrams\\17-6-3-xu-ly-chatbot-ai.png",
+      "svg": "generated-diagrams\\17-6-3-xu-ly-chatbot-ai.svg"
+    },
+    {
+      "index": 17,
+      "title": "6.4 Sơ đồ lớp thiết kế",
+      "slug": "18-6-4-so-o-lop-thiet-ke",
+      "png": "generated-diagrams\\18-6-4-so-o-lop-thiet-ke.png",
+      "svg": "generated-diagrams\\18-6-4-so-o-lop-thiet-ke.svg"
+    }
+  ],
+  "embeddedDocxImages": [
+    {
+      "docxImage": "word/media/image1.png",
+      "sourceSlug": "01-1-1-use-case-tong-quat",
+      "sourceTitle": "1.1 Use Case tổng quát"
+    },
+    {
+      "docxImage": "word/media/image2.png",
+      "sourceSlug": "02-1-2-use-case-chi-tiet-quan-ly-tai-khoan",
+      "sourceTitle": "1.2 Use Case chi tiết - Quản lý tài khoản"
+    },
+    {
+      "docxImage": "word/media/image3.png",
+      "sourceSlug": "03-1-3-use-case-chi-tiet-quan-ly-khoa-hoc",
+      "sourceTitle": "1.3 Use Case chi tiết - Quản lý khóa học"
+    },
+    {
+      "docxImage": "word/media/image4.png",
+      "sourceSlug": "05-1-5-use-case-chi-tiet-chatbot-ai",
+      "sourceTitle": "1.5 Use Case chi tiết - Chatbot AI"
+    },
+    {
+      "docxImage": "word/media/image5.png",
+      "sourceSlug": "06-1-6-use-case-chi-tiet-admin",
+      "sourceTitle": "1.6 Use Case chi tiết - Admin"
+    },
+    {
+      "docxImage": "word/media/image6.png",
+      "sourceSlug": "07-2-1-hoat-ong-ang-nhap",
+      "sourceTitle": "2.1 Hoạt động - Đăng nhập"
+    },
+    {
+      "docxImage": "word/media/image7.png",
+      "sourceSlug": "08-2-2-hoat-ong-ang-ky",
+      "sourceTitle": "2.2 Hoạt động - Đăng ký"
+    },
+    {
+      "docxImage": "word/media/image8.png",
+      "sourceSlug": "09-2-3-hoat-ong-mua-khoa-hoc",
+      "sourceTitle": "2.3 Hoạt động - Mua khóa học"
+    },
+    {
+      "docxImage": "word/media/image9.png",
+      "sourceSlug": "10-2-4-hoat-ong-chatbot-ai",
+      "sourceTitle": "2.4 Hoạt động - Chatbot AI"
+    },
+    {
+      "docxImage": "word/media/image10.png",
+      "sourceSlug": "11-2-5-hoat-ong-admin-quan-ly-du-lieu",
+      "sourceTitle": "2.5 Hoạt động - Admin quản lý dữ liệu"
+    },
+    {
+      "docxImage": "word/media/image11.png",
+      "sourceSlug": "12-3-1-so-o-lop-phan-tich",
+      "sourceTitle": "3.1 Sơ đồ lớp phân tích"
+    },
+    {
+      "docxImage": "word/media/image12.png",
+      "sourceSlug": "13-4-1-erd-tong-quat",
+      "sourceTitle": "4.1 ERD tổng quát"
+    },
+    {
+      "docxImage": "word/media/image13.png",
+      "sourceSlug": "14-5-1-kien-truc-tong-the-he-thong",
+      "sourceTitle": "5.1 Kiến trúc tổng thể hệ thống"
+    },
+    {
+      "docxImage": "word/media/image14.png",
+      "sourceSlug": "15-6-1-xu-ly-ang-nhap",
+      "sourceTitle": "6.1 Xử lý đăng nhập"
+    },
+    {
+      "docxImage": "word/media/image15.png",
+      "sourceSlug": "16-6-2-xu-ly-mua-khoa-hoc",
+      "sourceTitle": "6.2 Xử lý mua khóa học"
+    },
+    {
+      "docxImage": "word/media/image16.png",
+      "sourceSlug": "17-6-3-xu-ly-chatbot-ai",
+      "sourceTitle": "6.3 Xử lý Chatbot AI"
+    },
+    {
+      "docxImage": "word/media/image17.png",
+      "sourceSlug": "18-6-4-so-o-lop-thiet-ke",
+      "sourceTitle": "6.4 Sơ đồ lớp thiết kế"
+    }
+  ]
+}

@@ -1,0 +1,654 @@
+
+
+TRƯỜNG CAO ĐẲNG VIỆT MỸ HÀ NỘI
+
+NGÀNH ỨNG DỤNG PHẦN MỀM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HƯỚNG DẪN
+
+TRÌNH BÀY VÀ THỰC HIỆN ĐỒ ÁN TỐT NGHIỆP
+
+NGÀNH ỨNG DỤNG PHẦN MỀM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hà Nội, tháng 12/2025
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hà Nội, năm 2025
+
+
+
+QUY CÁCH TRÌNH BÀY ĐỒ ÁN TỐT NGHIỆP
+
+1. BỐ CỤC ĐỒ ÁN
+
+	Bố cục của Đồ án tốt nghiệp bao gồm:
+
+1.1. Các trang bìa
+
+- Trang bìa chính (In trên giấy cứng, màu xanh dương - xem mẫu trong Phụ lục)
+
+- Trang bìa phụ (In trên giấy thường, màu trắng. Phải có chữ ký xác nhận đồ án được chấp thuận ra hội đồng tốt nghiệp của GVHD - xem mẫu trong Phụ lục)
+
+1.2. Lời cảm ơn
+
+	Lời cảm ơn cần chân thành, không khuôn sáo, chỉ nên dành cho những người thực sự giúp đỡ việc hoàn thành đồ án tốt nghiệp, do đó không nên liệt kê quá nhiều người làm mất ý nghĩa của Lời cảm ơn. 
+
+1.3. Mục lục 
+
+	Xem mẫu trong Phụ lục.
+
+1.4. Mở đầu
+
+	Xem mẫu trong Phụ lục.
+
+1.5. Danh mục các chữ viết tắt 
+
+	Xem mẫu trong Phụ lục
+
+1.6. Danh mục các bảng biểu
+
+	Xem mẫu trong Phụ lục
+
+1.7. Danh mục hình ảnh, sơ đồ	
+
+	Xem mẫu trong Phụ lục
+
+1.8. Lời mở đầu 
+
+Bao gồm các nội dung: Tính cấp thiết của đề tài; Mục tiêu nghiên cứu; Phương pháp nghiên cứu; Đối tượng nghiên cứu; Phạm vi nghiên cứu; Kết cấu đồ án.
+
+1.9. Các chương 
+
+1.10. Kết luận 
+
+1.11. Danh mục tài liệu tham khảo 
+
+Xem mẫu trong Phụ lục.
+
+1.12. Phụ lục (nếu có)
+
+2. QUY ĐỊNH VỀ TRÌNH BÀY ĐỒ ÁN TỐT NGHIỆP
+
+2.1. Hình thức trình bày 
+
+		Đồ án tốt nghiệp phải được trình bày rõ ràng, mạch lạc, sạch sẽ, không được tẩy xóa, phải đánh số trang, đánh số bảng biểu, hình vẽ, đồ thị.
+
+2.2. Soạn thảo văn bản
+
+- Đồ án tốt nghiệp phải đ­ược trình bày theo phông chữ Times New Roman cỡ chữ 13; dãn dòng 1,2; khi xuống dòng chữ đầu dòng phải lùi vào 1cm; kiểu gõ (bảng mã Unicode); kích thước lề trên và dưới 2,5cm; lề trái 3.5cm; lề phải 2 cm. 
+
+- Khoảng cách giữa các đoạn cách trên là 6 pt, cách dưới là 0 pt.
+
+	- Định dạng trong các đoạn Justify (Căn đều hai bên).
+
+- Độ dài đồ án tối thiểu 50 trang đánh máy khổ A4 (được tính từ Lời nói đầu đến hết phần Kết luận);
+
+- Số trang được đánh ở giữa, phía dưới mỗi trang giấy, bắt đầu từ phần “Mở Đầu”.
+
+2.3. Số chương
+
+	Tùy theo mỗi đề tài, giáo viên hướng dẫn quyết định số chương và tên chương của mỗi đồ án, thông thường bao gồm: 
+
+ + Khung lý thuyết hoặc cơ sở lý thuyết của vấn đề nghiên cứu; 
+
+ + Phân tích thiết kế và xây dựng ứng dụng đề tài;
+
+ + Giải pháp và phương hướng phát triển của đề tài.
+
+2.4. Đánh số tiểu mục
+
+	- Các tiểu mục của đồ án, đồ án được trình bày và đánh số thành nhóm số, nhiều nhất gồm ba chữ số với số thứ nhất chỉ số chương (ví dụ: 3.1.2 chỉ tiểu mục 2 mục 1 chương 3);
+
+	- Tên các chương: Cỡ chữ 18, in hoa, đậm, trung tâm (giữa trang);
+
+	- Tiếu mục: Cỡ chữ 13, chữ thường, đậm, không lùi đầu dòng; 
+
+2.5. Bảng biểu, hình vẽ, sơ đồ 
+
+	- Việc đánh số bảng biểu, hình ảnh, phương trình phải gắn với số chương; ví dụ Hình 3.1 có nghĩa là hình thứ 1 trong chương 3; 
+
+	- Tên biểu bảng được đặt ở phía trên biểu bảng. Tên hình được đặt ở phía dưới hình.
+
+	- Mọi đồ thị, bảng biểu lấy từ các nguồn khác phải được trích dẫn đầy đủ, ví dụ “Nguồn: Bộ Khoa học và công nghệ [1]”. Nguồn được trích dẫn phải được liệt kê chính xác trong danh mục tài liệu tham khảo;
+
+
+
+
+
+Ví dụ:
+
+Bảng 3.1: Bảng nhà xuất bản.
+
+TT
+
+Tên cột
+
+Kiểu dữ liệu
+
+Mô tả
+
+1
+
+Id
+
+Int
+
+Mã nhà xuất bản
+
+2
+
+Name
+
+Varchar(255)
+
+Tên nhà xuất bản
+
+3
+
+Address
+
+Varchar(255)
+
+Đia chỉ
+
+
+
+
+
+Hình 3.1: Tên hình …….[1]
+
+2.6. Viết tắt
+
+Không lạm dụng việc viết tắt trong đồ án. Chỉ viết tắt những từ, những cụm từ, những thuật ngữ được sử dụng nhiều lần trong đồ án. Nếu cần viết tắt những từ, thuật ngữ, tên các cơ quan tổ chức... thì được viết tắt sau lần viết thứ nhất, có kèm theo chữ viết tắt trong ngoặc đơn. Viết tắt các từ nước ngoài phải theo quy định quốc tế. Nếu trong đồ án có sử dụng các chữ viết tắt thì phải có bảng danh mục các từ viết tắt (xếp theo thứ tự ABC) cho đồ án.
+
+2.7. Tài liệu tham khảo và trích dẫn
+
+Trích dẫn tài liệu tham khảo là một yêu cầu bắt buộc đối với các nghiên cứu. Việc thể hiện các trích dẫn tài liệu tham khảo có ý nghĩa quan trọng trong việc đánh giá độ chuyên sâu và tính nghiêm túc của nghiên cứu. Vì vậy trích dẫn tài liệu tham khảo phải được trình bày đúng quy chuẩn. Đồ án áp dụng tiêu chuẩn Harvard cho việc trình bày trích dẫn tài liệu tham khảo.
+
+Trích dẫn tài liệu tham khảo được chia làm 2 dạng chính: trích dẫn trong bài và danh mục tài liệu tham khảo. 
+
+Mỗi trích dẫn trong bài viết nhất thiết phải tương ứng với danh mục nguồn tài liệu được liệt kê trong danh sách tài liệu tham khảo.
+
+Xem hướng dẫn cách trích dẫn từng loại tài liệu tham khảo trong Phụ lục 5.
+
+2.7.1. Trích dẫn trong phần nội dung đồ án 
+
+Trích dẫn trong phần nội dung đồ án bao gồm các thông tin sau:
+
+- Họ tên tác giả/tổ chức
+
+- Năm xuất bản tài liệu
+
+- Trang tài liệu trích dẫn
+
+Có 2 cách chủ yếu trình bày trích dẫn:
+
+- Trích dẫn nguyên văn: sao chép chính xác từ ngữ, câu, đoạn văn mà tác giả dùng. Câu trích dẫn nguyên văn phải được để trong dấu ngoặc kép và bắt buộc phải ghi cả số trang của nguồn trích.
+
+- Thứ tự liệt kê là thứ tự tài liệu được trích dẫn trong đồ án
+
+2.7.2. Danh mục tài liệu tham khảo 
+
+Danh mục tài liệu tham khảo được bắt đầu bằng tiêu đề “Tài liệu tham khảo”, tiếp theo liệt kê tài liệu tham khảo (sách, bài báo, nguồn ấn phẩm điện tử…) được sắp xếp thứ tự Alphabet theo họ tác giả, tên bài viết/ấn phẩm không có tác giả.
+
+Chỉ liệt kê các tài liệu tham khảo được trích dẫn trong bài.
+
+Ví dụ:
+
+1. Đỗ Văn Uy, Thiết kế căn bản, Nxb Bách Khoa, Hà Nội, 2018.
+
+2. Ngô Diên Tập, Thiết kế thời đại số, Nxb Kim Đồng, Tp. Hồ Chí Minh, 1998.
+
+3. Shinya Izumi, Tadashi Yokoyama, Package Design in Japan, published by Taschen, 1993.
+
+4. Quang Vũ, Top 5 ngành nghề dành cho dân thiết kế đồ họa sau khi ra trường, nguồn: kenh14.vn/top-8-nganh-nghe-danh-cho-dan-thiet-ke, [cập nhật: 4/1/2019].
+
+2.8. Phụ lục của đồ án 
+
+	Phần này bao gồm những nội dung cần thiết nhằm minh họa hoặc bổ trợ cho nội dung và phương pháp của đồ án như: bảng hỏi khảo sát, câu hỏi phỏng vấn sâu, bảng kết quả xử lý số liệu, các sơ đồ, mẫu biểu, tranh ảnh …
+
+3. PHỤ LỤC
+
+
+
+
+
+BỘ GIÁO DỤC VÀ ĐÀO TẠO
+
+TRƯỜNG CAO ĐẲNG VIỆT MỸ HÀ NỘI
+
+
+
+
+
+
+
+(bìa 1, bìa cứng, chữ nhũ)
+
+ĐỒ ÁN TỐT NGHIỆP
+
+TÊN ĐỀ TÀI: CHỮ IN HOA
+
+
+
+Giảng viên hướng dẫn: ……………………………..
+
+Sinh viên thực hiện: Tên sinh viên – (MSV: 521210317)
+
+Tên sinh viên – (MSV: 521210317)
+
+Tên sinh viên – (MSV: 521210317)
+
+Tên sinh viên – (MSV: 521210317)
+
+Lớp: …………………………………………………
+
+Ngành: Ứng dụng phần mềm
+
+Khóa: ……………………………………………….
+
+
+
+
+
+
+
+
+
+
+
+Hà Nội, tháng …… năm 202…
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hà Nội, năm 2025
+
+
+
+BỘ GIÁO DỤC VÀ ĐÀO TẠO
+
+TRƯỜNG CAO ĐẲNG VIỆT MỸ HÀ NỘI
+
+
+
+
+
+
+
+(trang phụ bìa số 2, bìa mềm)
+
+ĐỒ ÁN TỐT NGHIỆP
+
+TÊN ĐỀ TÀI: CHỮ IN HOA
+
+
+
+Sinh viên thực hiện: Tên sinh viên – (MSV: 521210317)
+
+Tên sinh viên – (MSV: 521210318)
+
+Tên sinh viên – (MSV: 521210323)
+
+Tên sinh viên – (MSV: 521210322)
+
+Lớp: …………………………………………………
+
+Ngành: Ứng dụng phần mềm
+
+Khóa: ……………………………………………….
+
+Giảng viên hướng dẫn
+
+(Khoảng cách chữ ký GVHD)
+
+
+
+
+
+GV. Nguyễn Văn A
+
+
+
+Hà Nội, tháng …… năm 202…
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Giảng viên hướng dẫn: ……………………………
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hà Nội, năm 2025
+
+
+
+LỜI CẢM ƠN
+
+(trình bày trong trang riêng)
+
+Trang lời cảm ơn bày tỏ lòng biết ơn, kính trọng đối với thầy/cô hướng dẫn và những người giúp đỡ sinh viên khi hoàn thành khóa luận. Nó góp phần thể hiện sự chuyên nghiệp của người thực hiện, và gia tăng tính thiện cảm đối với người đọc. Dưới đây là mẫu nội dung được đề xuất, sinh viên có thể tùy chọn biên tập theo mong muốn cá nhân:
+
+Tôi xin cam đoan đồ án tốt nghiệp [Tên đề tài] là của riêng mình. Hệ thống các sản phẩm thiết kế là hoàn toàn trung thực, không trùng lặp. Để hoàn thành được đồ án tốt nghiệp này, tôi xin chân thành cảm ơn Ban giám hiệu, các khoa ngành, phòng ban, hội đồng chuyên môn và Quý thầy cô của Trường Cao đẳng Việt Mỹ Hà Nội đã tận tình giúp đỡ và tạo điều kiện cho tôi trong quá trình học tập. Đặc biệt, tôi xin gửi lời cảm ơn sâu sắc đến thầy/cô..................................... - giảng viên hướng dẫn đã đồng hành và cho tôi nhiều kiến thức chuyên môn quý báu. Lời cảm ơn tới các cá nhân/ đơn vị/ tập thể hỗ trợ trong quá trình thực hiện đồ án tốt nghiệp (nếu có thêm).
+
+ Hà Nội, ngày …… tháng …… năm 202…
+
+Tác giả (hoặc ghi Đại diện nhóm tác giả)
+
+
+
+
+
+(Ký và ghi rõ họ tên – Bằng màu mực xanh)
+
+
+
+MỤC LỤC
+
+(Trình bày trong trang riêng)
+
+LỜI CẢM ƠN	i
+
+MỤC LỤC	ii
+
+DANH MỤC CÁC TỪ VIẾT TẮT	iii
+
+DANH MỤC BẢNG BIỂU	iv
+
+DANH MỤC HÌNH ẢNH VÀ SƠ ĐỒ	v
+
+MỞ ĐẦU	vi
+
+CHƯƠNG I: TỔNG QUAN VỀ ĐỀ TÀI	1
+
+1.1. Giới thiệu đề tài	1
+
+1.1.1. Lý do chọn đề tài	1
+
+1.1.2. Mục tiêu đề tài	3
+
+1.2. Phạm vi đề tài	4
+
+1.2.1. Đối tượng nghiên cứu	5
+
+1.2.2. Phạm vi nghiên cứu	6
+
+1.3. Dự kiến công việc	7
+
+1.4. Công nghệ sử dụng	8
+
+CHƯƠNG II: 	9
+
+2.1.	10
+
+2.2. 	13
+
+CHƯƠNG III:.	20
+
+3.1.	22
+
+3.1.1. 	26
+
+3.1.2. 	28
+
+3.2. 	30
+
+3.2.1. 	32
+
+3.2.2. 	33
+
+3.3. 	39
+
+3.4. 	40
+
+3.4.1. 	42
+
+3.4.2. 	46
+
+3.5. Kiểm thử ứng dụng	50
+
+CHƯƠNG IV: KẾT LUẬN	51
+
+4.1. Kết quả đạt được	52
+
+4.2. Hạn chế	53
+
+4.3. Hướng phát triển	54
+
+TÀI LIỆU THAM KHẢO	55
+
+
+
+DANH MỤC CÁC TỪ VIẾT TẮT
+
+(trình bày trong trang riêng)
+
+STT
+
+Chữ viết tắt
+
+Giải thích
+
+1
+
+
+
+
+
+2
+
+
+
+
+
+3
+
+
+
+
+
+
+
+
+
+
+
+DANH MỤC BẢNG BIỂU
+
+(trình bày trong trang riêng)
+
+Bảng 2.1: Tên bảng	12
+
+Bảng 2.2: Tên bảng	22
+
+Bảng 2.3: Tên bảng	24
+
+Bảng 3.1: Tên bảng	26
+
+Bảng 3.2: Tên bảng	28
+
+Bảng 3.3: Tên bảng	32
+
+Lưu ý 
+
+Đối với sơ đồ, hình vẽ, đồ thị thì tên được đặt ở dưới
+
+Đối với bảng thì tên đặt ở trên.
+
+
+
+
+
+DANH MỤC HÌNH ẢNH VÀ SƠ ĐỒ
+
+(trình bày trong trang riêng)
+
+Hình 2.1: Tên hình ảnh	11
+
+Hình 2.2: Tên hình ảnh 	16
+
+Hình 2.3: Tên hình ảnh	17
+
+Hình 3.1: Tên hình ảnh	32
+
+Hình 3.2: Tên hình ảnh	35
+
+Hình 3.3: Tên hình ảnh	39
+
+
+
+Lưu ý 
+
+Đối với sơ đồ, hình vẽ, đồ thị thì tên được đặt ở dưới
+
+Đối với bảng thì tên đặt ở trên.
+
+
+
+MỞ ĐẦU
+
+(trình bày trong trang riêng)
+
+Bao gốm các nội dung: Tính cấp thiết của đề tài; Mục tiêu nghiên cứu;Phương pháp nghiên cứu;Đối tượng nghiên cứu; Phạm vi nghiên cứu; Kết cấu đồ án
+
+
+
+CHƯƠNG 1: TỔNG QUAN VỀ ĐỀ TÀI
+
+(trình bày trong trang riêng)
+
+Giới thiệu đề tài
+
+Lý do chọn đề tài
+
+Nội dung …….
+
+Mục tiêu đề tài
+
+Nội dung …….
+
+…….
+
